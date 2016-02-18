@@ -1,4 +1,4 @@
 [submodule "public"]
 	path = public
-	url = git@github.com:elgris/elgris.github.io.git
+	url = https://github.com/elgris/elgris.github.io.git
 	branch = master
