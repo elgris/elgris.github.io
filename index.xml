@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>elgris = &#34; &#43; &#34;.join(&#34;tech&#34;, &#34;travel&#34;)</title>
+    <title>creating software rocks!</title>
     <link>http://elgris.github.io/</link>
-    <description>Recent content on elgris = &#34; &#43; &#34;.join(&#34;tech&#34;, &#34;travel&#34;)</description>
+    <description>Recent content on creating software rocks!</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 08 Feb 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://elgris.github.io/index.xml" rel="self" type="application/rss+xml" />
