@@ -5,8 +5,104 @@
     <link>http://elgris.github.io/</link>
     <description>Recent content on creating software rocks!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Feb 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Mar 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://elgris.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Appium VS Calabash</title>
+      <link>http://elgris.github.io/blog/2_appium_vs_calabash/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://elgris.github.io/blog/2_appium_vs_calabash/</guid>
+      <description>
+
+&lt;p&gt;OK, what do we have here? A mobile application written with Cordova for 2 platforms: iOS and Android. I&amp;rsquo;m lazy, I don&amp;rsquo;t want to check that all critical functionality works as expected after each release. In 2 platforms. And I don&amp;rsquo;t want anyone to do that, because manual work is stupid in IT. So I need a proper tool to test both applications automatically, so I have enought free time to explore the world around me :)&lt;/p&gt;
+
+&lt;h1 id=&#34;tl-dr:114248fa596f687622d06d2e1a31c068&#34;&gt;TL;DR&lt;/h1&gt;
+
+&lt;p&gt;Decided to go with &lt;a href=&#34;http://calaba.sh&#34;&gt;Calabash&lt;/a&gt; at the end.&lt;/p&gt;
+
+&lt;h1 id=&#34;constraints:114248fa596f687622d06d2e1a31c068&#34;&gt;Constraints&lt;/h1&gt;
+
+&lt;p&gt;All right, let&amp;rsquo;s define following constraints:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I want to write tests once (or at least write as less code as possible :) ) and run them against both Android and iOS builds.&lt;/li&gt;
+&lt;li&gt;I need to test &lt;strong&gt;hybrid&lt;/strong&gt; application created with &lt;a href=&#34;https://cordova.apache.org/&#34;&gt;Cordova&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;I&amp;rsquo;d like to write tests in Javascript, because in &lt;a href=&#34;http://www.seesawlabs.com/&#34;&gt;SeeSaw Labs&lt;/a&gt; we use plenty of it, so many people can support the tests.&lt;/li&gt;
+&lt;li&gt;Tests must be readable. Ideally, written in Gherkin, but some framework that provides &lt;a href=&#34;http://frisbyjs.com/&#34;&gt;frisby&lt;/a&gt;-like syntax is OK also.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is not so many frameworks that satisfy constraint 1. So I ended up with two of them: &lt;a href=&#34;http://appium.io&#34;&gt;Appium&lt;/a&gt; and &lt;a href=&#34;http://calaba.sh&#34;&gt;Calabash&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;what-s-good-about-appium:114248fa596f687622d06d2e1a31c068&#34;&gt;What&amp;rsquo;s good about Appium?&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No need to link any additional code to your application. Just build it, run it (emulator is fine), Appium will do the rest.&lt;/li&gt;
+&lt;li&gt;Easy debugging. Appium uses WebDriver API which can be used with any HTTP client (&lt;code&gt;curl&lt;/code&gt; to the rescue).&lt;/li&gt;
+&lt;li&gt;Fancy UI that allows you to investigate layout of pages, prepare queries to the elements and even record test scenarios like Selenium IDE.&lt;/li&gt;
+&lt;li&gt;Integrates with CucumberJS very easy. Basically, you just write your tests with CucumberJS and communicate to Appium with webdriver client.&lt;/li&gt;
+&lt;li&gt;If you know how to write tests for Selenium WebDriver - you already know how to use Appium.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;what-s-wrong-with-appium:114248fa596f687622d06d2e1a31c068&#34;&gt;What&amp;rsquo;s wrong with Appium?&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Doesn&amp;rsquo;t work well with hybrid applications on Android. In my case it was impossible to determine an element on page. The coordinates of an elements were changing each time I scrolled the page.
+&lt;img src=&#34;http://elgris.github.io/img/2_appium_vs_calabash/android.png&#34; alt=&#34; where is the EditText element you say? o_O !&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Doesn&amp;rsquo;t work well with Cordova app on iOS with iOS SDK that comes with Xcode 7.2. The problem is: somehow the elements (buttons, labels, inputs) are &amp;ldquo;disabled&amp;rdquo;, so Appium just does not see them and cannot interact with them. Look at the screenshot. Appium Inspector was told not to show &amp;ldquo;disabled&amp;rdquo; elements. Dude, where&amp;rsquo;s my button then? :)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;info: [debug] Responding to client with error: {&amp;quot;status&amp;quot;:7,&amp;quot;value&amp;quot;:{&amp;quot;message&amp;quot;:&amp;quot;An element could not be located on the page using the given search parameters.&amp;quot;,&amp;quot;origValue&amp;quot;:&amp;quot;&amp;quot;},&amp;quot;sessionId&amp;quot;:&amp;quot;eccc5b20-a5dd-4f41-9ce8-c16964e3f64c&amp;quot;}
+info: &amp;lt;-- POST /wd/hub/session/eccc5b20-a5dd-4f41-9ce8-c16964e3f64c/element 500 754.829 ms - 179
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is an issue about that: &lt;a href=&#34;https://github.com/appium/appium/issues/4131&#34;&gt;https://github.com/appium/appium/issues/4131&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Documentation is scarce, I spent lots of time to deliver first test.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;what-s-good-about-calabash:114248fa596f687622d06d2e1a31c068&#34;&gt;What&amp;rsquo;s good about Calabash?&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It works. It just works with hybrid app on both platforms. Of course, there is some diference between APIs for Android and iOS, but everything is well documented. There is even examples that cover more 80% of your needs: &lt;a href=&#34;https://github.com/calabash/x-platform-example&#34;&gt;https://github.com/calabash/x-platform-example&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;There is a good tutorial about linking Calabash library to iOS build: &lt;a href=&#34;https://github.com/calabash/calabash-ios/wiki/Tutorial%3A--Creating-a-cal-Target&#34;&gt;https://github.com/calabash/calabash-ios/wiki/Tutorial%3A--Creating-a-cal-Target&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Cucumber out of the box.&lt;/li&gt;
+&lt;li&gt;Command-line tool that allows debugging: &lt;code&gt;calabash-android console&lt;/code&gt; and &lt;code&gt;calabash-ios console&lt;/code&gt;. That&amp;rsquo;s how I inspected application pages and debugged interaction with elements using selectors.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;what-s-wrong-with-calabash-then:114248fa596f687622d06d2e1a31c068&#34;&gt;What&amp;rsquo;s wrong with Calabash then?&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ruby only :(&lt;/li&gt;
+&lt;li&gt;Need to prepare special target to build iOS application&lt;/li&gt;
+&lt;li&gt;No fancy UI which could help a lot with finding proper selector of the element&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;what-s-at-the-end:114248fa596f687622d06d2e1a31c068&#34;&gt;What&amp;rsquo;s at the end?&lt;/h1&gt;
+
+&lt;p&gt;I decided to go with &lt;a href=&#34;http://calaba.sh&#34;&gt;Calabash&lt;/a&gt;. Despite it does not have Javascript bindings (yet), writing Ruby code was easy and fun. Actually, by the end of first day I have successfully set up all required infrastructure, ran first test on both platforms and prepared a tutorial for the rest of the team.&lt;/p&gt;
+
+&lt;p&gt;I would recommend Appium to those who makes native applications. With hybrid apps (at least Cordova-based) I ran into bunch of problems. Perhaps those problems could be solved, but &lt;strong&gt;learning Ruby was much faster&lt;/strong&gt; than solving those artificial problems.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Coworking space in Nha Trang, Vietnam</title>
+      <link>http://elgris.github.io/blog/3_coworking_nha_trang/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://elgris.github.io/blog/3_coworking_nha_trang/</guid>
+      <description>&lt;p&gt;Found a nice coworking space in Nha Trang, Vietnam: &lt;a href=&#34;http://livincollective.tumblr.com/&#34;&gt;LivinCollective&lt;/a&gt;. Check &lt;a href=&#34;https://www.google.com/maps/place/LIVINcollective/@12.24055,109.191345,15z/data=!4m2!3m1!1s0x0:0x9e9b8620219644fb?sa=X&amp;amp;ved=0ahUKEwjP8PHApbvLAhVTGo4KHf4_CxcQ_BIIcTAK&#34;&gt;the map&lt;/a&gt;. The place is comfortable, the hosts are really friendly. Working there is free, but it would be great if you buy something (juice or coffee or something to eat) to help run the place. WiFi there was the fastest I had in Nha Trang :)&lt;/p&gt;
+
+&lt;p&gt;Some pictures of the place:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://elgris.github.io/img/3_coworking_nha_trang/IMG_0131.jpg&#34; alt=&#34; coworking space !&#34; /&gt;
+&lt;img src=&#34;http://elgris.github.io/img/3_coworking_nha_trang/IMG_0132.jpg&#34; alt=&#34; again, coworking space !&#34; /&gt;
+&lt;img src=&#34;http://elgris.github.io/img/3_coworking_nha_trang/IMG_0134.jpg&#34; alt=&#34; view from the second floor !&#34; /&gt;
+&lt;img src=&#34;http://elgris.github.io/img/3_coworking_nha_trang/IMG_0135.jpg&#34; alt=&#34; and don&#39;t forget to buy something to drink :) !&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Apitest - test and document that</title>

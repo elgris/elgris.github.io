@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+    <head>
+        
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        <title>Appium VS Calabash &middot; creating software rocks!</title>
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' type='text/css'>
+        <link rel="stylesheet" href="http://elgris.github.io/libraries/normalize.3.0.1.css" />
+        <link rel="stylesheet" href="http://elgris.github.io/css/liquorice.css" />
+        <link rel="shortcut icon" href="http://elgris.github.io/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" href="http://elgris.github.io/apple-touch-icon-144-precomposed.png" sizes="144x144" />
+        <link rel="alternate" href="" type="application/rss+xml" title="creating software rocks!" />
+    </head>
+    <body class="li-body">
+
+<header class="li-page-header">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-brand li-left">
+                <a href="http://elgris.github.io">
+                    <img src="http://elgris.github.io/img/rock.jpg" style="vertical-align: middle;">
+                    <span style="vertical-align: middle;">creating software rocks!</span>
+                    </a></div>
+                <div class="li-menu li-right">
+                    <span class="li-menu-icon" onclick="javascript:toggle('menu');">&#9776;</span>
+                    <ul id="menu2" class="li-menu-items">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <ul id="menu" class="li-menu-items li-menu-mobile">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <article class="li-article">
+                    <header class="li-article-header">
+                        <h1 class="li-article-title">Appium VS Calabash</h1>
+                        <span class="li-article-taxonomies">
+                            
+                                Posted in
+                                
+                                    <a href="http://elgris.github.io/categories/tech">tech</a>
+                                
+                            
+
+                            
+                        </span>
+                         - 
+                        <time class="li-article-date">Saturday, March 12, 2016</time>
+                    </header>
+                    <section>
+                        
+
+<p>OK, what do we have here? A mobile application written with Cordova for 2 platforms: iOS and Android. I&rsquo;m lazy, I don&rsquo;t want to check that all critical functionality works as expected after each release. In 2 platforms. And I don&rsquo;t want anyone to do that, because manual work is stupid in IT. So I need a proper tool to test both applications automatically, so I have enought free time to explore the world around me :)</p>
+
+<h1 id="tl-dr:114248fa596f687622d06d2e1a31c068">TL;DR</h1>
+
+<p>Decided to go with <a href="http://calaba.sh">Calabash</a> at the end.</p>
+
+<h1 id="constraints:114248fa596f687622d06d2e1a31c068">Constraints</h1>
+
+<p>All right, let&rsquo;s define following constraints:</p>
+
+<ul>
+<li>I want to write tests once (or at least write as less code as possible :) ) and run them against both Android and iOS builds.</li>
+<li>I need to test <strong>hybrid</strong> application created with <a href="https://cordova.apache.org/">Cordova</a>.</li>
+<li>I&rsquo;d like to write tests in Javascript, because in <a href="http://www.seesawlabs.com/">SeeSaw Labs</a> we use plenty of it, so many people can support the tests.</li>
+<li>Tests must be readable. Ideally, written in Gherkin, but some framework that provides <a href="http://frisbyjs.com/">frisby</a>-like syntax is OK also.</li>
+</ul>
+
+<p>There is not so many frameworks that satisfy constraint 1. So I ended up with two of them: <a href="http://appium.io">Appium</a> and <a href="http://calaba.sh">Calabash</a>.</p>
+
+<h1 id="what-s-good-about-appium:114248fa596f687622d06d2e1a31c068">What&rsquo;s good about Appium?</h1>
+
+<ul>
+<li>No need to link any additional code to your application. Just build it, run it (emulator is fine), Appium will do the rest.</li>
+<li>Easy debugging. Appium uses WebDriver API which can be used with any HTTP client (<code>curl</code> to the rescue).</li>
+<li>Fancy UI that allows you to investigate layout of pages, prepare queries to the elements and even record test scenarios like Selenium IDE.</li>
+<li>Integrates with CucumberJS very easy. Basically, you just write your tests with CucumberJS and communicate to Appium with webdriver client.</li>
+<li>If you know how to write tests for Selenium WebDriver - you already know how to use Appium.</li>
+</ul>
+
+<h1 id="what-s-wrong-with-appium:114248fa596f687622d06d2e1a31c068">What&rsquo;s wrong with Appium?</h1>
+
+<ul>
+<li><p>Doesn&rsquo;t work well with hybrid applications on Android. In my case it was impossible to determine an element on page. The coordinates of an elements were changing each time I scrolled the page.
+<img src="http://elgris.github.io/img/2_appium_vs_calabash/android.png" alt=" where is the EditText element you say? o_O !" /></p></li>
+
+<li><p>Doesn&rsquo;t work well with Cordova app on iOS with iOS SDK that comes with Xcode 7.2. The problem is: somehow the elements (buttons, labels, inputs) are &ldquo;disabled&rdquo;, so Appium just does not see them and cannot interact with them. Look at the screenshot. Appium Inspector was told not to show &ldquo;disabled&rdquo; elements. Dude, where&rsquo;s my button then? :)</p>
+
+<pre><code>info: [debug] Responding to client with error: {&quot;status&quot;:7,&quot;value&quot;:{&quot;message&quot;:&quot;An element could not be located on the page using the given search parameters.&quot;,&quot;origValue&quot;:&quot;&quot;},&quot;sessionId&quot;:&quot;eccc5b20-a5dd-4f41-9ce8-c16964e3f64c&quot;}
+info: &lt;-- POST /wd/hub/session/eccc5b20-a5dd-4f41-9ce8-c16964e3f64c/element 500 754.829 ms - 179
+</code></pre>
+
+<p>There is an issue about that: <a href="https://github.com/appium/appium/issues/4131">https://github.com/appium/appium/issues/4131</a></p></li>
+
+<li><p>Documentation is scarce, I spent lots of time to deliver first test.</p></li>
+</ul>
+
+<h1 id="what-s-good-about-calabash:114248fa596f687622d06d2e1a31c068">What&rsquo;s good about Calabash?</h1>
+
+<ul>
+<li>It works. It just works with hybrid app on both platforms. Of course, there is some diference between APIs for Android and iOS, but everything is well documented. There is even examples that cover more 80% of your needs: <a href="https://github.com/calabash/x-platform-example">https://github.com/calabash/x-platform-example</a></li>
+<li>There is a good tutorial about linking Calabash library to iOS build: <a href="https://github.com/calabash/calabash-ios/wiki/Tutorial%3A--Creating-a-cal-Target">https://github.com/calabash/calabash-ios/wiki/Tutorial%3A--Creating-a-cal-Target</a></li>
+<li>Cucumber out of the box.</li>
+<li>Command-line tool that allows debugging: <code>calabash-android console</code> and <code>calabash-ios console</code>. That&rsquo;s how I inspected application pages and debugged interaction with elements using selectors.</li>
+</ul>
+
+<h1 id="what-s-wrong-with-calabash-then:114248fa596f687622d06d2e1a31c068">What&rsquo;s wrong with Calabash then?</h1>
+
+<ul>
+<li>Ruby only :(</li>
+<li>Need to prepare special target to build iOS application</li>
+<li>No fancy UI which could help a lot with finding proper selector of the element</li>
+</ul>
+
+<h1 id="what-s-at-the-end:114248fa596f687622d06d2e1a31c068">What&rsquo;s at the end?</h1>
+
+<p>I decided to go with <a href="http://calaba.sh">Calabash</a>. Despite it does not have Javascript bindings (yet), writing Ruby code was easy and fun. Actually, by the end of first day I have successfully set up all required infrastructure, ran first test on both platforms and prepared a tutorial for the rest of the team.</p>
+
+<p>I would recommend Appium to those who makes native applications. With hybrid apps (at least Cordova-based) I ran into bunch of problems. Perhaps those problems could be solved, but <strong>learning Ruby was much faster</strong> than solving those artificial problems.</p>
+
+                    </section>
+                </article>
+            </div>
+        </div>
+
+        <div class="row li-author">
+    <div class="sixteen columns">
+        Written by <strong>elgris</strong>
+    </div>
+</div>
+
+
+        <div class="row li-pagination">
+            <div class="eight columns">
+                <div class="li-pagination-previous">
+                    
+                        &nbsp;
+                    
+                </div>
+            </div>
+            <div class="eight columns">
+                <div class="li-pagination-next">
+                    
+                        Older article<br />
+                        <a href="http://elgris.github.io/blog/3_coworking_nha_trang/"> Coworking space in Nha Trang, Vietnam</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="li-page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="sixteen columns">
+                <p>-----</p>
+                <p> Who am I? Call myself <a href="https://github.com/elgris">elgris</a>, because I like to hide in shadows :). I'm a passionate software developer who also loves traveling! I know I should start my personal travel blog, but every time I tried to do that, I was distracted by tests, benchmarks, new ideas and new shiny technological toys. Sorry :) But I have a lot of stories to tell if you catch me one day and treat me a beer :) </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen columns">
+                <div class="li-page-footer-legal">
+                    &copy; 2016. All rights reserved. 
+                </div>
+                <div class="li-page-footer-theme">
+                    <span class=""><a href="https://github.com/eliasson/liquorice/">liquorice</a> is a theme for <a href="http://hugo.spf13.com">hugo</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script type="text/javascript">
+    <!--
+    function toggle(id) {
+        var e = document.getElementById(id);
+        e.style.display == 'block' ? e.style.display = 'none' : e.style.display = 'block';
+    }
+    
+    </script>
+    <script type="text/javascript">
+    <!--
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', ""]);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    -->
+    </script>
+    </body>
+</html>
+
