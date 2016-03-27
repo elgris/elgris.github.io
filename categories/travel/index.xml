@@ -5,8 +5,65 @@
     <link>http://elgris.github.io/categories/travel/</link>
     <description>Recent content in Travel on creating software rocks!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 12 Mar 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Mar 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://elgris.github.io/categories/travel/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Happy Birthday Docker!</title>
+      <link>http://elgris.github.io/blog/5_docker_birthday/</link>
+      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://elgris.github.io/blog/5_docker_birthday/</guid>
+      <description>
+
+&lt;p&gt;Look at him! 3 years old baby which is growing and growing and growing!&lt;/p&gt;
+
+&lt;p&gt;Celebrating birthdays of such tools is a good idea in general. Why? Because attendees of such events are usually students or people not familiar (much) with technology. I have participated at Docker Birthday #3 at RMIT (Ho Chi Minh City, Vietnam) as mentor and what I&amp;rsquo;d say: local students need MOAR Docker.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://elgris.github.io/img/5_docker_birthday/docker_birthday.jpg&#34; alt=&#34; Docker Birthday! !&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Students are smart and eager to learn. But, unfortunately, nobody teaches them new IT stuff. The reason is clear: IT changes every day and universities must use some kind of plan or programme. With fast pacing technology, the plan must also change every day, it&amp;rsquo;s impossible to keep it up.&lt;/p&gt;
+
+&lt;p&gt;And that reminds me of my own days in university and makes me a little bit sad. We were given fundamental stuff (which is good), but had no idea how and where to apply it because &lt;strong&gt;we were not given any practical lesson or real world example&lt;/strong&gt;. I believe, it&amp;rsquo;s kinda common problem with conservative and beaurocratic Universities. Thus, I beg you Big Guys - Docker, Google, Amazon, Microsoft, whoever else - please keep running events for students. Celebrate birthdays of your technologies. Introduce new tools. Run meetups. But make it offline, so students come, play, experiment, ask mentors and get answers.&lt;/p&gt;
+
+&lt;p&gt;Why offline? Well, despite online training sessions are a way easier to set up and run, offline meetups provide real contact. I mean, real eye-to-eye contact between students and mentors. Mentors share not only knowledge, they also share energy and inspiration (good mentors must do that), the things which difficult to transmit over network, you have to &lt;strong&gt;feel&lt;/strong&gt; them.&lt;/p&gt;
+
+&lt;p&gt;Of course, many people, especially already trained professionals, feel fine with online sessions. They join online meetups with some kind of expectations and (possibly) with a set of questions they want to ask.&lt;/p&gt;
+
+&lt;p&gt;In contrast, students have no idea what&amp;rsquo;s this technology is about, they barely touched it and it&amp;rsquo;s OK. In such case event organizer needs not only to present the new cool technical stuff, but transmit his/her passion and inspiration to attendees. From my experience, it&amp;rsquo;s difficult to do online. So we need offline events that spread knowledge, socialize and make people &lt;strong&gt;want&lt;/strong&gt; to try new freshly presented product. You know, students can be very creative, you never know what they invent with your tool if you make them inspired :) Maybe they will create one more &amp;ldquo;Minecraft + Docker&amp;rdquo; crazy thing? Or some service that occasionally earn billions?&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s what I call &amp;ldquo;investing into people&amp;rdquo;. And I believe that such kind of investment brings huge profit in long term.&lt;/p&gt;
+
+&lt;h2 id=&#34;p-s:386596c23df0f1529803640c9c2e5e7a&#34;&gt;P.S.&lt;/h2&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt; for Birthday Event!&lt;/p&gt;
+
+&lt;p&gt;Special thanks goes to &lt;a href=&#34;http://seesawlabs.com/&#34;&gt;SeeSaw Labs&lt;/a&gt; for sponsorship! The cupcakes were delicious! =)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FOSSAsia conference, Singapore</title>
+      <link>http://elgris.github.io/blog/4_fossasia/</link>
+      <pubDate>Tue, 22 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://elgris.github.io/blog/4_fossasia/</guid>
+      <description>&lt;p&gt;Finally got somewhere big and IT. Welcome to FOSS Asia IT conference that took place at Singapore at 18-20th of March.&lt;/p&gt;
+
+&lt;p&gt;What did I see there? Well, a lot of people willing to learn. Some of the talks were really mindblowing, but majority of them were average. It doesn&amp;rsquo;t mean they were bad, they were not hardcore, meaning no crazy hacks or benchmarks or extremely low-level code surgery. But they were educating and very useful for students and those who wants to take a look at some other technology, tool or idea. Sometimes there were kinda weird but funny topics :D.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://elgris.github.io/img/4_fossasia/fossasia.jpg&#34; alt=&#34; IT talks. About sex. !&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;My own talk was about &amp;ldquo;Yet Another Testing Tool&amp;rdquo; &amp;copy; that allows you to generate documentation for RESTful API. Yes, it&amp;rsquo;s &lt;a href=&#34;https://github.com/seesawlabs/apitest&#34;&gt;apitest&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;WARNING! Lots of fun, gifs, kittens and a couple lines of code ahead! :D. If you&amp;rsquo;re interested in demo example, please &lt;a href=&#34;https://github.com/seesawlabs/apitest/tree/master/example&#34;&gt;check it here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;iframe src=&#34;https://docs.google.com/presentation/d/14JdRvqYO6famsyiHhmyU6rc0RudQZ7FJB39wN9CL-pM/embed?start=false&amp;loop=false&amp;delayms=3000&#34; frameborder=&#34;0&#34; width=&#34;683&#34; height=&#34;541&#34; allowfullscreen=&#34;true&#34; mozallowfullscreen=&#34;true&#34; webkitallowfullscreen=&#34;true&#34; style=&#34;display:block;margin: 0 auto;&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Photos are here: &lt;a href=&#34;https://www.flickr.com/photos/comprock/25757208022/in/pool-fossasia-2016/&#34;&gt;https://www.flickr.com/photos/comprock/25757208022/in/pool-fossasia-2016/&lt;/a&gt;
+Thanks &lt;a href=&#34;https://axelerant.com/team-member/michael-cannon/&#34;&gt;Michael Cannon&lt;/a&gt; for great photography work!!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Coworking space in Nha Trang, Vietnam</title>
