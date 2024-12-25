@@ -1,0 +1,55 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = "Yet another SWE's quiet place for ranting"
+theme = 'hugo-coder'
+languagecode = "en"
+defaultcontentlanguage = "en"
+
+[pagination]
+pagerSize = 20
+
+[services]
+[services.disqus]
+shortname = "elgris"
+disqus_identifier = "elgris.github.io"
+
+[services.googleAnalytics]
+id = 'UA-75044111-1'
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+  description = "Yet another SWE's quiet place for ranting"
+  keywords = "blog,developer,personal"
+  avatarurl = "images/avatar.jpg"
+
+  faviconSVG = "/img/favicon.svg"
+  favicon_32 = "/img/favicon-32x32.png"
+  favicon_16 = "/img/favicon-16x16.png"
+
+  since = 2013
+
+  enableTwemoji = true
+
+  colorScheme = "auto"
+  hidecolorschemetoggle = false
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  author = "authors"
+
+# Social links
+[[params.social]]
+  name = "Github"
+  icon = "fa-brands fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/elgris/"
+
+# Menu links
+[[menu.main]]
+  name = "Blog"
+  weight = 1
+  url  = "blog/"
