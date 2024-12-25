@@ -1,20 +1,26 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = "Yet another SWE's quiet place for ranting"
-theme = 'hugo-coder'
+theme = 'hugo-theme-yue'
 languagecode = "en"
 defaultcontentlanguage = "en"
 
 [pagination]
-pagerSize = 20
+  pagerSize = 20
+
+[permalinks]
+  [permalinks.page]
+    posts = '/posts/:year/:month/:slug/'
+  [permalinks.section]
+    posts = '/posts/'
 
 [services]
-[services.disqus]
-shortname = "elgris"
-disqus_identifier = "elgris.github.io"
+  [services.disqus]
+    shortname = "elgris"
+    disqus_identifier = "elgris.github.io"
 
-[services.googleAnalytics]
-id = 'UA-75044111-1'
+  [services.googleAnalytics]
+  id = 'G-VVTVB4B8WY'
 
 [markup.highlight]
 style = "github-dark"
@@ -52,4 +58,4 @@ style = "github-dark"
 [[menu.main]]
   name = "Blog"
   weight = 1
-  url  = "blog/"
+  url  = "posts/"
