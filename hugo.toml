@@ -4,6 +4,7 @@ title = "Yet another SWE's quiet place for ranting"
 theme = 'hugo-theme-yue'
 languagecode = "en"
 defaultcontentlanguage = "en"
+enableRobotsTXT = true
 
 [pagination]
   pagerSize = 20
